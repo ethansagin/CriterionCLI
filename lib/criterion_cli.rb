@@ -1,6 +1,9 @@
-require "criterion_cli/version"
+require 'pry'
+require 'open-uri'
+require 'nokogiri'
 
-module CriterionCli
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require_relative "criterion_cli/version"
+
+require_relative "criterion_cli/movie"
+require_relative "criterion_cli/scraper"
+require_relative "criterion_cli/cli"
