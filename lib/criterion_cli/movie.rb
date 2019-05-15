@@ -10,7 +10,6 @@ class Movie
   
   def director=(dir)
     @director = Director.find_or_create_by_name(dir)
-    self.director.add_movie
   end
   
   def self.all
