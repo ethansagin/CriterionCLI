@@ -1,10 +1,16 @@
 class Movie
-  attr_accessor :title, :director, :country, :year, :url
+  attr_accessor :title, :country, :year, :url, :duration, :color, :language, :cast, :crew, :summary
+  attr_reader :director
   
   @@all = []
   
   def initialize
     @@all << self
+  end
+  
+  def director=(dir)
+    @director = Director.find_or_create_by_name(dir)
+    self.director.add_movie
   end
   
   def self.all
