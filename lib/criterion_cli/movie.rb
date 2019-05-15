@@ -1,5 +1,5 @@
 class Movie
-  attr_accessor :title, :director, :country, :year
+  attr_accessor :title, :director, :country, :year, :url
   
   @@all = []
   
