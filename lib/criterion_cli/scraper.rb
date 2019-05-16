@@ -30,7 +30,7 @@ class Scraper
   
     mov.duration = doc.css("ul.film-meta-list li")[3].text
     mov.color = doc.css("ul.film-meta-list li")[4].text
-    mov.language = doc.css("ul.film-meta-list li")[6].text.strip
+    mov.language = doc.css("ul.film-meta-list li")[6].text.gsub(/\s+/, "").gsub(",", "/")
     mov.summary = doc.css("div.product-summary p").text
   
     cast_hsh = {}

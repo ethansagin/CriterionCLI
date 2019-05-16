@@ -57,6 +57,7 @@ class CriterionCli::Cli
   def view_profile
     input = nil
     while input != "menu"
+      puts ""
       puts "To view movie profile, enter the movie number"
       puts "To return to the previous menu, enter 'menu'"
       input = gets.strip.downcase
@@ -72,8 +73,27 @@ class CriterionCli::Cli
 
   def movie_profile(index)
     mov = Movie.all[index]
-    puts "#{mov.title}"
+    Scraper.movie_info_scraper(mov) unless mov.duration
+    puts ""
+    puts "#{mov.title} (#{mov.year}))"
+    puts "directed by #{mov.director}"
+    puts ""
+    puts "#{mov.summary}"
+    puts ""
+    puts "STARRING"
+    mov.cast.each do |k, v|
+      puts "#{k} as #{v}"
+    end
+    puts ""
+    mov.crew.each do |k, v|
+      puts "#{v}: #{k}"
+    end
+    puts ""
+    puts "A(n) #{mov.language} language film produced in #{mov.country}"
+    puts "Filmed in #{mov.color}"
+    puts "Runtime #{mov.duration}"
   end
     
+    # :title, :director, :country, :year, :url, :duration, :color, :language, :cast, :crew, :summary
 
 end
