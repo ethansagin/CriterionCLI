@@ -11,26 +11,25 @@ class CriterionCli::Cli
   end
   
   def start
-    puts ""
-    puts "To browse the list of titles, enter 'list titles'"
-    puts "To exit this program, enter 'exit'"
-    input = gets.strip.downcase
-      while input != "exit"
-        case input
-        when "list titles"
-          list_titles
-          start
-        else
-          puts "Invalid selection"
-          start
+    input = nil
+    while input != "exit"
+      puts "To browse the list of titles, enter 'list titles'"
+      puts "To exit this program, enter 'exit'"
+      input = gets.strip.downcase
+      case input
+      when "list titles"
+        list_titles
+      else
+        puts "Invalid selection"
+        puts ""
       end
     end
     puts "Thank you for using CC, enjoy the show!"
   end
   
   def list_titles
-    Movies.all.each_with_index do |movie, index|
-      puts "#{index + 1}. #{movie.name}"
+    Movie.all.each_with_index do |movie, index|
+      puts "#{index + 1}. #{movie.title}"
     end
   end
   
