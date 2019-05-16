@@ -16,7 +16,7 @@ class Scraper
       if country != ""
         mov = Movie.new
         mov.title = title
-        mov.director = director
+        mov.director = Director.new(director)
         mov.country = country
         mov.year = year
         mov.url = url
