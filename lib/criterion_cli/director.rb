@@ -16,6 +16,11 @@ class Director
     @@all << self
   end
   
+  def add_movie(mov)
+    mov.director ||= self
+    @movies << mov unless @movies.include?(mov)
+  end
+  
   def self.find_by_name(name)
     Director.all.detect{|dir| dir.name == name}
   end

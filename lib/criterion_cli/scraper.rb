@@ -9,7 +9,6 @@ class Scraper
     doc = Nokogiri::HTML(html)
     doc.css("tr.gridFilm").each do |film|
       title = film.css("a").text.strip
-      binding.pry
       director = film.css("td.g-director").text.strip
       country = film.css("td.g-country").text.strip.gsub(",", "")
       year = film.css("td.g-year").text.strip

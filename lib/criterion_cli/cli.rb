@@ -75,8 +75,8 @@ class CriterionCli::Cli
     mov = Movie.all[index]
     Scraper.movie_info_scraper(mov) unless mov.duration
     puts ""
-    puts "#{mov.title} (#{mov.year}))"
-    puts "directed by #{mov.director}"
+    puts "#{mov.title} (#{mov.year})"
+    puts "directed by #{mov.director.name}"
     puts ""
     puts "#{mov.summary}"
     puts ""
