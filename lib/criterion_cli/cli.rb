@@ -6,6 +6,7 @@ class CriterionCli::Cli
   
   def call
     Scraper.movies_scraper
+    binding.pry
     puts "Welcome to the Criterion Collection Catalog!"
     start
   end
@@ -17,7 +18,7 @@ class CriterionCli::Cli
       puts "MAIN MENU"
       puts "- To browse the list of titles, enter 'list titles'"
       puts "- To browse the list of directors, enter 'list directors'"
-      puts "- To browse the list of titles by decade, enter 'list years'"
+      #puts "- To browse the list of titles by decade, enter 'list years'"
       puts "- To exit this program, enter 'exit'"
       input = gets.strip.downcase
       case input
@@ -28,7 +29,7 @@ class CriterionCli::Cli
       when "list years"
         list_years
       when "exit"
-        ""
+        puts ""
         puts "Thank you for using CCC, enjoy the show!"
       else
         puts "Invalid selection"
@@ -204,11 +205,15 @@ class CriterionCli::Cli
 
 ### Lists Decade Path
   def list_years
-    puts " -To browse the catalog by year, enter a decade between '1900' and '#{(Movie.all.length/100.to_f).ceil}'"
-"
+    mov_by_yr = Movie.all.sort_by{|mov| mov.year}
+    puts " -To browse the catalog by year, enter a decade between '1900'"
+    puts "and '#{mov_by_yr.last.year}'"
+    binding.pry
     puts "Decade List Menu"
     puts "- To "
+    input = gets.strip.downcase
   end
     
+### Lists Country Path
     
 end
