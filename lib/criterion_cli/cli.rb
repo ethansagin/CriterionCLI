@@ -17,6 +17,7 @@ class CriterionCli::Cli
       puts "MAIN MENU"
       puts "- To browse the list of titles, enter 'list titles'"
       puts "- To browse the list of directors, enter 'list directors'"
+      puts "- To browse the list of titles by decade, enter 'list years'"
       puts "- To exit this program, enter 'exit'"
       input = gets.strip.downcase
       case input
@@ -24,6 +25,8 @@ class CriterionCli::Cli
         list_titles
       when "list directors"
         list_directors
+      when "list years"
+        list_years
       when "exit"
         ""
         puts "Thank you for using CCC, enjoy the show!"
@@ -143,7 +146,7 @@ class CriterionCli::Cli
         puts ""
         puts "#{dir.name} Criterion Profile"
         puts "- - - - - - - - - - - - - - - - - "
-        puts "#{dir.name} has directer a total of #{dir.movies.length} films"
+        puts "#{dir.name} has directed a total of #{dir.movies.length} films"
         puts "in the Criterion Collection:"
         director_info_mov_list(dir)
         puts ""
@@ -190,7 +193,8 @@ class CriterionCli::Cli
         end
       end
     end
-    if dir_crew.length > 0 
+    if dir_crew.length > 0
+      dir_crew = dir_crew.map{|role| role.gsub(" by", "")}
       dir_crew = dir_crew.uniq.join(", ")
       puts "Besides directing, #{dir.name} also contributed to some of"
       puts "these films in the following roles:"
@@ -198,5 +202,13 @@ class CriterionCli::Cli
     end
   end
 
+### Lists Decade Path
+  def list_years
+    puts " -To browse the catalog by year, enter a decade between '1900' and '#{(Movie.all.length/100.to_f).ceil}'"
+"
+    puts "Decade List Menu"
+    puts "- To "
+  end
+    
     
 end
