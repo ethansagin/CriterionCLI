@@ -13,7 +13,7 @@ class Scraper
       country = film.css("td.g-country").text.strip.gsub(",", "")
       year = film.css("td.g-year").text.strip.gsub(" ", "")
       url = film.attr("data-href")
-      unless year == "" || year == "0"
+      if country != ""
       # needed to prevent anthologies from being instantiated as Movie objects
         mov = Movie.new
         mov.title = title

@@ -6,7 +6,6 @@ class CriterionCli::Cli
   
   def call
     Scraper.movies_scraper
-    binding.pry
     puts "Welcome to the Criterion Collection Catalog!"
     start
   end
@@ -204,15 +203,15 @@ class CriterionCli::Cli
   end
 
 ### Lists Decade Path
-  def list_years
-    mov_by_yr = Movie.all.sort_by{|mov| mov.year}
-    puts " -To browse the catalog by year, enter a decade between '1900'"
-    puts "and '#{mov_by_yr.last.year}'"
-    binding.pry
-    puts "Decade List Menu"
-    puts "- To "
-    input = gets.strip.downcase
-  end
+  # def list_years
+  #   mov_by_yr = Movie.all.sort_by{|mov| mov.year}
+  #   puts " -To browse the catalog by year, enter a decade between '1900'"
+  #   puts "and '#{mov_by_yr.last.year}'"
+  #   binding.pry
+  #   puts "Decade List Menu"
+  #   puts "- To "
+  #   input = gets.strip.downcase
+  # end
     
 ### Lists Country Path
     
