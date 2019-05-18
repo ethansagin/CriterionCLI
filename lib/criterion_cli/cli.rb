@@ -247,7 +247,7 @@ class CriterionCli::Cli
       puts countries = <<~end
       
         Country List Menu
-        - To browse the director list, enter 'list'
+        - To browse the country list, enter 'list'
         - For more information on a country, enter 'info'
         - To return to the previous menu, enter 'menu'
       end
@@ -258,6 +258,7 @@ class CriterionCli::Cli
           puts "#{index + 1}) #{cty.name}"
         end
       elsif input == "info"
+        puts ""
         country_info
       else
         puts invalid = <<~end
@@ -273,6 +274,44 @@ class CriterionCli::Cli
     #how many movies
     #what are those movies
     #for more information
+    input = nil
+    while input != "menu"
+      puts cty_info = <<~end
+  
+        Country Info Menu
+        - To view more information on a country, enter the country number
+        - To view the profile of a movie listed in a country profile, enter 'view'
+        - To return to the previous menu, enter 'menu'
+      end
+      input = gets.strip.downcase
+      if input.to_i > 0 && input.to_i <= Country.all.length
+        cty = Country.all[input.to_i - 1]
+        puts ""
+        puts "#{cty.name} Criterion Profile"
+        puts "- - - - - - - - - - - - - - - - - "
+        puts "A total of #{cty.movies.length} films have been produced in #{cty.name}:"
+        puts ""
+        country_info_mov_list(cty)
+      elsif input == "view"
+        view_profile
+      else
+        puts invalid = <<~end
+          
+          Invalid selection
+        end
+      end
+    end
    end
+   
+  def country_info_mov_list(cty)
+    cty.movies.each do |moovv|
+      Movie.all.each_with_index do |mov, index|
+        if moovv == mov
+          Scraper.movie_info_scraper(mov) unless mov.duration
+          puts "#{index + 1}) #{mov.title}"
+        end
+      end
+    end
+  end
       
 end
