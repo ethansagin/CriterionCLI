@@ -19,7 +19,7 @@ class CriterionCli::Cli
           - To browse the list of titles, enter 'list titles'
           - To browse the list of directors, enter 'list directors'
           - To browse the list of titles by decade, enter 'list years'
-          - To browse the list of titles by country, enter 'list country'
+          - To browse the list of titles by country, enter 'list countries'
           - To exit this program, enter 'exit'
       end
       input = gets.strip.downcase
@@ -28,6 +28,8 @@ class CriterionCli::Cli
         list_titles
       when "list directors"
         list_directors
+      when "list countries"
+        list_countries
       when "list years"
         list_years
       when "exit"
@@ -239,5 +241,38 @@ class CriterionCli::Cli
   # end
     
 ### Lists Country Path
-    
+  def list_countries
+    input = nil
+    while input != "menu"
+      puts countries = <<~end
+      
+        Country List Menu
+        - To browse the director list, enter 'list'
+        - For more information on a country, enter 'info'
+        - To return to the previous menu, enter 'menu'
+      end
+      input = gets.strip.downcase
+      if input == "menu"
+      elsif input == "list"
+        Country.all.each_with_index do |cty, index|
+          puts "#{index + 1}) #{cty.name}"
+        end
+      elsif input == "info"
+        country_info
+      else
+        puts invalid = <<~end
+          
+          Invalid selection
+        end
+      end
+    end
+  end
+        
+        
+  def country_info
+    #how many movies
+    #what are those movies
+    #for more information
+   end
+      
 end
