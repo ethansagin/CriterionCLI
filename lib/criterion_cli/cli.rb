@@ -13,12 +13,14 @@ class CriterionCli::Cli
   def start
     input = nil
     while input != "exit"
-      puts ""
-      puts "MAIN MENU"
-      puts "- To browse the list of titles, enter 'list titles'"
-      puts "- To browse the list of directors, enter 'list directors'"
-      #puts "- To browse the list of titles by decade, enter 'list years'"
-      puts "- To exit this program, enter 'exit'"
+      puts main = <<~end
+        
+        MAIN MENU
+        - To browse the list of titles, enter 'list titles'
+        - To browse the list of directors, enter 'list directors'
+        - To browse the list of titles by decade, enter 'list years'
+        - To exit this program, enter 'exit'
+      end
       input = gets.strip.downcase
       case input
       when "list titles"
@@ -28,11 +30,15 @@ class CriterionCli::Cli
       when "list years"
         list_years
       when "exit"
-        puts ""
-        puts "Thank you for using CCC, enjoy the show!"
+        puts goodbye = <<~end
+        
+          Thank you for using CCC, enjoy the show!
+        end
       else
-        puts "Invalid selection"
-        puts ""
+        puts invalid = <<~end
+        
+        Invalid selection
+        end
       end
     end
   end
