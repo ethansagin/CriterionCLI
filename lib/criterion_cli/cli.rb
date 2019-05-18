@@ -14,12 +14,12 @@ class CriterionCli::Cli
     input = nil
     while input != "exit"
       puts main = <<~end
-        
-        MAIN MENU
-        - To browse the list of titles, enter 'list titles'
-        - To browse the list of directors, enter 'list directors'
-        - To browse the list of titles by decade, enter 'list years'
-        - To exit this program, enter 'exit'
+          
+          MAIN MENU
+          - To browse the list of titles, enter 'list titles'
+          - To browse the list of directors, enter 'list directors'
+          - To browse the list of titles by decade, enter 'list years'
+          - To exit this program, enter 'exit'
       end
       input = gets.strip.downcase
       case input
@@ -36,8 +36,8 @@ class CriterionCli::Cli
         end
       else
         puts invalid = <<~end
-        
-        Invalid selection
+          
+          Invalid selection
         end
       end
     end
@@ -48,12 +48,14 @@ class CriterionCli::Cli
   def list_titles
     input = nil
     while input != "menu"
-    puts ""
-    puts "Movie Titles (Full Catalog) Menu"
-    puts "- To browse the catalog, enter a page number between '1' and '#{(Movie.all.length/100.to_f).ceil}'"
-    puts "- To view a movie profile, enter 'view'"
-    puts "- To return to the previous menu, enter 'menu'"
-    input = gets.strip.downcase
+      puts titles = <<~end
+    
+        Movie Titles (Full Catalog) Menu
+        - To browse the catalog, enter a page number between '1' and '#{(Movie.all.length/100.to_f).ceil}'
+        - To view a movie profile, enter 'view'
+        - To return to the previous menu, enter 'menu'
+      end
+      input = gets.strip.downcase
       if input == "menu"
       elsif input.to_i > 0 && input.to_i <= ((Movie.all.length/100.to_f).ceil)
         Movie.all.each_with_index do |movie, index|
@@ -64,8 +66,10 @@ class CriterionCli::Cli
       elsif input == "view"
         view_profile
       else
-        puts "Invalid selection"
-        puts ""
+        puts invalid = <<~end
+          
+          Invalid selection
+        end
       end
     end
   end
@@ -73,17 +77,21 @@ class CriterionCli::Cli
   def view_profile
     input = nil
     while input != "menu"
-      puts ""
-      puts "Movie Profile Menu"
-      puts "- To view movie profile, enter the movie number"
-      puts "- To return to the previous menu, enter 'menu'"
+      puts profile = <<~end
+  
+        Movie Profile Menu
+        - To view movie profile, enter the movie number
+        - To return to the previous menu, enter 'menu'
+      end
       input = gets.strip.downcase
       if input.to_i > 0 && input.to_i <= Movie.all.length + 1
         movie_profile(input.to_i - 1)
       elsif input == "menu"
       else
-        puts "Invalid selection"
-        puts ""
+        puts invalid = <<~end
+        
+        Invalid selection
+        end
       end
     end
   end
@@ -117,12 +125,14 @@ class CriterionCli::Cli
   def list_directors
     input = nil
     while input != "menu"
-    puts ""
-    puts "Director List Menu"
-    puts "- To browse the director list, enter a page number between '1' and '#{(Director.all.length/100.to_f).ceil}'"
-    puts "- For more information on a director, enter 'info'"
-    puts "- To return to the previous menu, enter 'menu'"
-    input = gets.strip.downcase
+      puts directors = <<~end 
+    
+        Director List Menu
+        - To browse the director list, enter a page number between '1' and '#{(Director.all.length/100.to_f).ceil}'
+        - For more information on a director, enter 'info'
+        - To return to the previous menu, enter 'menu'
+      end
+      input = gets.strip.downcase
       if input == "menu"
       elsif input.to_i > 0 && input.to_i <= ((Director.all.length/100.to_f).ceil)
         Director.all.each_with_index do |dir, index|
@@ -133,7 +143,10 @@ class CriterionCli::Cli
       elsif input == "info"
         director_info
       else
-        puts "Invalid selection"
+        puts invalid = <<~end
+          
+          Invalid selection
+        end
       end
     end
   end
@@ -141,11 +154,13 @@ class CriterionCli::Cli
   def director_info
     input = nil
     while input != "menu"
-      puts ""
-      puts "Director Info Menu"
-      puts "- To view more information on a director, enter the director number"
-      puts "- To view the profile of a movie listed in a director's info, enter 'view'"
-      puts "- To return to the previous menu, enter 'menu'"
+      puts dir_info = <<~end
+  
+        Director Info Menu
+        - To view more information on a director, enter the director number
+        - To view the profile of a movie listed in a director profile, enter 'view'
+        - To return to the previous menu, enter 'menu'
+      end
       input = gets.strip.downcase
       if input.to_i > 0 && input.to_i < Director.all.length
         dir = Director.all[input.to_i]
@@ -165,7 +180,10 @@ class CriterionCli::Cli
       elsif input == "view"
         view_profile
       else
-        puts "Invalid selection"
+        puts invalid = <<~end
+          
+          Invalid selection
+        end
       end
     end
   end
