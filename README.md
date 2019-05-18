@@ -1,8 +1,6 @@
 # CriterionCli
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/criterion_cli`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to the Criterion Collection Catalog gem! This CLI program serves as search engine for essential information on films within the Criterion Collection and includes search functionality for films by title, director, #{year,}, and country.
 
 ## Installation
 
@@ -22,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The user can navigate this program by following the instructions printed in each menu. Input of prompted keywords will allow the user to access various menus, while detailed information on entries within the Catalog can be accessed by inputting the corresponding ID number for an item (i.e. movie title, director, etc.) when prompted. To return to the previous menu, input 'menu' into the console. To exit the program, navigate back to the main menu and input 'exit'.
 
 ## Development
 
