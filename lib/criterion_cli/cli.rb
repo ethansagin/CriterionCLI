@@ -19,6 +19,7 @@ class CriterionCli::Cli
           - To browse the list of titles, enter 'list titles'
           - To browse the list of directors, enter 'list directors'
           - To browse the list of titles by decade, enter 'list years'
+          - To browse the list of titles by country, enter 'list country'
           - To exit this program, enter 'exit'
       end
       input = gets.strip.downcase

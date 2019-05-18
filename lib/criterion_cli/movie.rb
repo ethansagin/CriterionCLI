@@ -12,6 +12,11 @@ class Movie
     self.director.add_movie(self)
   end
   
+  def country=(cty)
+    @country = Country.find_or_create_by_name(cty)
+    self.country.add_movie(self)
+  end
+  
   def self.all
     @@all 
   end
