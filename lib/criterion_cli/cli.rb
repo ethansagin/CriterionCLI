@@ -6,23 +6,21 @@ class CriterionCli::Cli
   
   def call
     Scraper.movies_scraper
-    welcome = <<~end
-                  _ _ _ _ _ _ _ _
-                 / _ _ _ _ _ _ _ \
-                / /             \ \
-               / /               \ \
-              | |                 \/
-              | |
-              | |
-              | |           
-              | |
-              | |
-               \ \
-                \ \_ _ _ _
-                 \ _ _ _ _\
-               
-      Welcome to the Criterion Collection Catalog!
-    end
+    puts "      _ _ _ _ _ _ _ _"
+    puts "     / _ _ _ _ _ _ _ \ "
+    puts "    / /             \ \ " 
+    puts "   / /               \ \ "
+    puts "  | |                 \/ "
+    puts "  | | "
+    puts "  | | "
+    puts "  | | "          
+    puts "  | | "
+    puts "  | | "
+    puts "   \ \ "
+    puts "    \ \_ _ _ _"
+    puts "     \ _ _ _ _\ "
+    puts ""           
+    puts "  Welcome to the Criterion Collection Catalog!"
     start
   end
   
@@ -153,7 +151,7 @@ class CriterionCli::Cli
       puts "#{v}: #{k}"
     end
     puts ""
-    puts "A(n) #{mov.language} language film produced in #{mov.country}"
+    puts "A(n) #{mov.language} language film produced in #{mov.country.name}"
     puts "Filmed in #{mov.color}"
     puts "Runtime #{mov.duration}"
     puts "* * * * * * * * * * * * * * * * *"
@@ -202,7 +200,7 @@ class CriterionCli::Cli
       end
       input = gets.strip.downcase
       if input.to_i > 0 && input.to_i < Director.all.length
-        dir = Director.all[input.to_i]
+        dir = Director.all[input.to_i - 1]
         puts ""
         puts "#{dir.name} Criterion Profile"
         puts "- - - - - - - - - - - - - - - - - "
