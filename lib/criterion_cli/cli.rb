@@ -6,19 +6,6 @@ class CriterionCli::Cli
   
   def call
     Scraper.movies_scraper
-    puts "      _ _ _ _ _ _ _ _"
-    puts "     / _ _ _ _ _ _ _ \ "
-    puts "    / /             \ \ " 
-    puts "   / /               \ \ "
-    puts "  | |                 \/ "
-    puts "  | | "
-    puts "  | | "
-    puts "  | | "          
-    puts "  | | "
-    puts "  | | "
-    puts "   \ \ "
-    puts "    \ \_ _ _ _"
-    puts "     \ _ _ _ _\ "
     puts ""           
     puts "  Welcome to the Criterion Collection Catalog!"
     start
