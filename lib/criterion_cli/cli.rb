@@ -7,7 +7,7 @@ class CriterionCli::Cli
   def call
     Scraper.movies_scraper
     puts ""           
-    puts "  Welcome to the Criterion Collection Catalog!"
+    puts "WELCOME TO THE CRITERION COLLECTION CATALOG!"
     start
   end
   
