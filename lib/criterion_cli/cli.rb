@@ -6,7 +6,23 @@ class CriterionCli::Cli
   
   def call
     Scraper.movies_scraper
-    puts "Welcome to the Criterion Collection Catalog!"
+    welcome = <<~end
+                  _ _ _ _ _ _ _ _
+                 / _ _ _ _ _ _ _ \
+                / /             \ \
+               / /               \ \
+              | |                 \/
+              | |
+              | |
+              | |           
+              | |
+              | |
+               \ \
+                \ \_ _ _ _
+                 \ _ _ _ _\
+               
+      Welcome to the Criterion Collection Catalog!
+    end
     start
   end
   
@@ -36,6 +52,26 @@ class CriterionCli::Cli
         puts goodbye = <<~end
         
           Thank you for using CCC, enjoy the show!
+
+                    @@
+                  @ @  @  @@ @ @
+                @ @ @ @ @ @ @ @ @
+              _@_@_@_@_ @@ _@_@_@_@_
+              ||| ||| ||@ @|| ||| ||| @
+              ||| ||| ||---|| ||| |||
+              ||| ||| ||| ||| ||| |||
+              ||| ||| ||| ||| ||| |||
+              ||| ||| ||| ||| ||| |||
+              ||| ||| ||| ||| ||| |||
+              ||| ||| ||| ||| ||| |||
+              ||| ||| ||| ||| ||| |||
+              ||| ||| ||| ||| ||| |||
+              ||| ||| ||| ||| ||| |||
+              ||| ||| ||| ||| ||| |||
+              ||| ||| ||| ||| ||| |||
+        @     |||_|||_|||_|||_|||_|||  @  @@  @
+
+          
         end
       else
         puts invalid = <<~end
