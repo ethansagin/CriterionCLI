@@ -250,17 +250,6 @@ class CriterionCli::Cli
     end
   end
 
-### Lists Decade Path
-  # def list_years
-  #   mov_by_yr = Movie.all.sort_by{|mov| mov.year}
-  #   puts " -To browse the catalog by year, enter a decade between '1900'"
-  #   puts "and '#{mov_by_yr.last.year}'"
-  #   binding.pry
-  #   puts "Decade List Menu"
-  #   puts "- To "
-  #   input = gets.strip.downcase
-  # end
-    
 ### Lists Country Path
   def list_countries
     input = nil
@@ -292,9 +281,6 @@ class CriterionCli::Cli
         
         
   def country_info
-    #how many movies
-    #what are those movies
-    #for more information
     input = nil
     while input != "menu"
       puts cty_info = <<~end
@@ -335,4 +321,38 @@ class CriterionCli::Cli
     end
   end
       
+### Lists Decade Path
+  def list_years
+    input = nil
+    while input != "menu"
+      puts decade = <<~end
+      
+        Decade List Menu
+        - To browse titles by decade, enter a decade between '1920' and '#{Date.today.year}'
+        - For more information on a title, enter 'view'
+        - To return to the previous menu, enter 'menu'
+      end
+      input = gets.strip.downcase
+      if input.to_i >= 1900 && input.to_i <= Date.today.year
+        decade = input.to_i / 10 * 10
+        counter = 0
+        Movie.all.each_with_index do |mov, index|
+          if mov.year.to_i >= decade && mov.year.to_i < (decade + 10)
+            puts "#{index + 1}) #{mov.title} (#{mov.year})"
+            counter += 1
+          end
+        end
+        puts ""
+        puts "A total of #{counter} Criterion films were made during the #{decade}s"
+        puts ""
+      elsif input == "view"
+        view_profile
+      else
+        puts invalid = <<~end
+          
+          Invalid selection
+        end
+      end
+    end
+  end
 end
