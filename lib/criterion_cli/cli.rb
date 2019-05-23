@@ -1,8 +1,4 @@
-require 'pry'
-require 'open-uri'
-require 'nokogiri'
-
-class CriterionCli::Cli
+class Cli
   
   def call
     Scraper.movies_scraper
@@ -17,10 +13,10 @@ class CriterionCli::Cli
       puts main = <<~end
           
           MAIN MENU
-          - To browse the list of titles, enter 'list titles'
-          - To browse the list of directors, enter 'list directors'
-          - To browse the list of titles by decade, enter 'list years'
-          - To browse the list of titles by country, enter 'list countries'
+          - Enter 'list titles' to go to the Movie Titles Menu
+          - Enter 'list directors' to go to the Movie Directors Menu
+          - Enter 'list years' to go to the Decade List Menu
+          - Enter 'list countries' to go to the Country List Menu
           - To exit this program, enter 'exit'
       end
       input = gets.strip.downcase
@@ -71,9 +67,10 @@ class CriterionCli::Cli
   
   def list_titles
     input = nil
+    print_movies(1)
     while input != "menu"
       puts titles = <<~end
-    
+
         Movie Titles (Full Catalog) Menu
         - To browse the catalog, enter a page number between '1' and '#{(Movie.all.length/100.to_f).ceil}'
         - To view a movie profile, enter 'view'
@@ -82,11 +79,12 @@ class CriterionCli::Cli
       input = gets.strip.downcase
       if input == "menu"
       elsif input.to_i > 0 && input.to_i <= ((Movie.all.length/100.to_f).ceil)
-        Movie.all.each_with_index do |movie, index|
-          if index >= (input.to_i - 1)*100 && index < (input.to_i)*100
-            puts "#{index + 1}) #{movie.title}"
-          end
-        end
+        print_movies(input)
+        # Movie.all.each_with_index do |movie, index|
+        #   if index >= (input.to_i - 1)*100 && index < (input.to_i)*100
+        #     puts "#{index + 1}) #{movie.title}"
+        #   end
+        # end
       elsif input == "view"
         view_profile
       else
@@ -96,6 +94,14 @@ class CriterionCli::Cli
         end
       end
     end
+  end
+  
+  def print_movies(input)
+        Movie.all.each_with_index do |movie, index|
+          if index >= (input.to_i - 1)*100 && index < (input.to_i)*100
+            puts "#{index + 1}) #{movie.title}"
+          end
+        end
   end
   
   def view_profile

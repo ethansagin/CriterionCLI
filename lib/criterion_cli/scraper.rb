@@ -1,7 +1,3 @@
-require 'pry'
-require 'open-uri'
-require 'nokogiri'
-
 class Scraper
 
   def self.movies_scraper
@@ -37,7 +33,7 @@ class Scraper
   def self.movie_info_scraper(mov)
     html = open(mov.url)
     doc = Nokogiri::HTML(html)
-  
+
     mov.duration = doc.css("ul.film-meta-list li")[3].text
     mov.color = doc.css("ul.film-meta-list li")[4].text
     mov.language = doc.css("ul.film-meta-list li")[6].text.gsub(/\s+/, "").gsub(",", "/")
