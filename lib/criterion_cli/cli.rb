@@ -66,27 +66,25 @@ class Cli
 ###List Titles Path
   
   def list_titles
-    input = nil
-    print_movies(1)
-    while input != "menu"
+    input = 1
+    puts ""
+    print_movies(input)
+    while input != "main"
       puts titles = <<~end
 
-        Movie Titles (Full Catalog) Menu
-        - To browse the catalog, enter a page number between '1' and '#{(Movie.all.length/100.to_f).ceil}'
-        - To view a movie profile, enter 'view'
-        - To return to the previous menu, enter 'menu'
+        MOVIE TITLES 
+        You are viewing page 1 of movie titles.
+        - Enter a number between '1' and '#{(Movie.all.length/100.to_f).ceil}' to view another page of titles
+        - Enter 'view #' to view the profile of a specific movie
+            (Ex. 'view 5' will return the profile for the fifth movie listed, '8½')
+        - Enter 'main' to return to the main menu
       end
       input = gets.strip.downcase
-      if input == "menu"
+      if input == "main"
       elsif input.to_i > 0 && input.to_i <= ((Movie.all.length/100.to_f).ceil)
         print_movies(input)
-        # Movie.all.each_with_index do |movie, index|
-        #   if index >= (input.to_i - 1)*100 && index < (input.to_i)*100
-        #     puts "#{index + 1}) #{movie.title}"
-        #   end
-        # end
-      elsif input == "view"
-        view_profile
+      elsif /^view\s/.match(input)
+        view_profile?(input)
       else
         puts invalid = <<~end
           
@@ -97,31 +95,29 @@ class Cli
   end
   
   def print_movies(input)
-        Movie.all.each_with_index do |movie, index|
-          if index >= (input.to_i - 1)*100 && index < (input.to_i)*100
-            puts "#{index + 1}) #{movie.title}"
-          end
-        end
+    Movie.all.each_with_index do |movie, index|
+      if index >= (input.to_i - 1)*100 && index < (input.to_i)*100
+        puts "#{index + 1}) #{movie.title}"
+      end
+    end
   end
   
-  def view_profile
-    input = nil
-    while input != "menu"
-      puts profile = <<~end
-  
-        Movie Profile Menu
-        - To view movie profile, enter the movie number
-        - To return to the previous menu, enter 'menu'
-      end
-      input = gets.strip.downcase
-      if input.to_i > 0 && input.to_i <= Movie.all.length + 1
-        movie_profile(input.to_i - 1)
-      elsif input == "menu"
-      else
+  def view_profile?(input)
+    num = input.gsub("view", "").split(" ")
+    if num.length == 1
+      num = num.join
+      if num.to_i > 0 && num.to_i <= Movie.all.length + 1
+        movie_profile(num.to_i - 1)
+      else 
         puts invalid = <<~end
-        
+      
         Invalid selection
         end
+      end
+    else
+      puts invalid = <<~end
+      
+      Invalid selection
       end
     end
   end
