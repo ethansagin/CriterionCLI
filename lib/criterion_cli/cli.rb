@@ -107,7 +107,7 @@ class Cli
   
   def view_profile?(input)
     num = input.gsub("view", "")
-    if num.to_i > 0 && num.to_i <= Movie.all.length + 1
+    if num.to_i > 0 && num.to_i <= Movie.all.length
       movie_profile(num.to_i - 1)
     else 
       puts invalid = <<~end
@@ -184,7 +184,7 @@ class Cli
   
   def view_dir_info?(input)
     num = input.gsub("info", "")
-    if num.to_i > 0 && num.to_i <= Director.all.length + 1
+    if num.to_i > 0 && num.to_i <= Director.all.length
       dir_info(num.to_i - 1)
     else 
       puts invalid = <<~end
@@ -261,15 +261,16 @@ class Cli
         Country List Menu
         - Enter 'list' to reprint the list of countries
         - Enter 'info #' for more information on a specific country
+            (Ex. 'info 8' will display information for the eighth country listed)
         - Enter 'main' to return to the main menu
       end
       input = gets.strip.downcase
       if input == "main"
       elsif input == "list"
         print_countries
-      elsif input == "info"
+      elsif /^info\s\d*$/.match(input)
         puts ""
-        country_info
+        view_cty_info?(input)
       else
         puts invalid = <<~end
           
@@ -279,40 +280,32 @@ class Cli
     end
   end
         
-  def print countries
+  def print_countries
     Country.all.each_with_index do |cty, index|
       puts "#{index + 1}) #{cty.name}"
     end
   end
-        
-  def country_info
-    input = nil
-    while input != "menu"
-      puts cty_info = <<~end
   
-        Country Info Menu
-        - To view more information on a country, enter the country number
-        - To view the profile of a movie listed in a country profile, enter 'view'
-        - To return to the previous menu, enter 'menu'
-      end
-      input = gets.strip.downcase
-      if input.to_i > 0 && input.to_i <= Country.all.length
-        cty = Country.all[input.to_i - 1]
-        puts ""
-        puts "#{cty.name} Criterion Profile"
-        puts "- - - - - - - - - - - - - - - - - "
-        puts "A total of #{cty.movies.length} films have been produced in #{cty.name}:"
-        puts ""
-        country_info_mov_list(cty)
-      elsif input == "view"
-        view_profile
-      else
-        puts invalid = <<~end
-          
-          Invalid selection
-        end
+  def view_cty_info?(input)
+    num = input.gsub("info", "")
+    if num.to_i > 0 && num.to_i <= Country.all.length
+      cty_info(num.to_i - 1)
+    else 
+      puts invalid = <<~end
+    
+      Invalid selection
       end
     end
+  end
+  
+  def cty_info(input)
+    cty = Country.all[input]
+    puts ""
+    puts "#{cty.name} Criterion Profile"
+    puts "- - - - - - - - - - - - - - - - - "
+    puts "A total of #{cty.movies.length} films have been produced in #{cty.name}:"
+    puts ""
+    country_info_mov_list(cty)
    end
    
   def country_info_mov_list(cty)
