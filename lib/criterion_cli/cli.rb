@@ -1,3 +1,4 @@
+require 'pry'
 class Cli
   
   def call
@@ -68,22 +69,24 @@ class Cli
   def list_titles
     input = 1
     puts ""
+    puts "You are viewing page #{input} of movie titles."
     print_movies(input)
     while input != "main"
       puts titles = <<~end
 
         MOVIE TITLES 
-        You are viewing page #{input} of movie titles.
         - Enter a number between '1' and '#{(Movie.all.length/100.to_f).ceil}' to view another page of titles
         - Enter 'view #' to view the profile of a specific movie
-            (Ex. 'view 5' will display the profile for the fifth movie listed, '8½')
+            (Ex. 'view 5' will display the profile for the fifth movie listed)
         - Enter 'main' to return to the main menu
       end
       input = gets.strip.downcase
       if input == "main"
       elsif input.to_i > 0 && input.to_i <= ((Movie.all.length/100.to_f).ceil)
         print_movies(input)
-      elsif /^view\s/.match(input)
+        puts ""
+        puts "You are viewing page #{input} of movie titles."
+      elsif /^view\s\d*$/.match(input)
         view_profile?(input)
       else
         puts invalid = <<~end
@@ -103,20 +106,12 @@ class Cli
   end
   
   def view_profile?(input)
-    num = input.gsub("view", "").split(" ")
-    if num.length == 1
-      num = num.join
-      if num.to_i > 0 && num.to_i <= Movie.all.length + 1
-        movie_profile(num.to_i - 1)
-      else 
-        puts invalid = <<~end
-      
-        Invalid selection
-        end
-      end
-    else
+    num = input.gsub("view", "")
+    if num.to_i > 0 && num.to_i <= Movie.all.length + 1
+      movie_profile(num.to_i - 1)
+    else 
       puts invalid = <<~end
-      
+    
       Invalid selection
       end
     end
@@ -151,21 +146,24 @@ class Cli
   def list_directors
     input = 1
     print_directors(input)
+    puts ""
+    puts "You are viewing page #{input} of directors."
     while input != "main"
       puts directors = <<~end 
     
         DIRECTORS LIST
-        You are viewing page #{input} of directors
         - Enter a number between '1' and '#{(Director.all.length/100.to_f).ceil}' to view another page of directors
         - Enter 'info #' for more information on a specific director
-            (Ex. 'info 3' will display information for the third director listed, 'Robert Altman')
+            (Ex. 'info 3' will display information for the third director listed)
         - Enter 'main' to return to the main menu
       end
       input = gets.strip.downcase
       if input == "main"
       elsif input.to_i > 0 && input.to_i <= ((Director.all.length/100.to_f).ceil)
         print_directors(input)
-      elsif /^info\s/.match(input)
+        puts ""
+        puts "You are viewing page #{input} of directors."
+      elsif /^info\s\d*$/.match(input)
         view_dir_info?(input)
       else
         puts invalid = <<~end
@@ -185,20 +183,12 @@ class Cli
   end
   
   def view_dir_info?(input)
-    num = input.gsub("view", "").split(" ")
-    if num.length == 1
-      num = num.join
-      if num.to_i > 0 && num.to_i <= Director.all.length + 1
-        dir_info(num.to_i - 1)
-      else 
-        puts invalid = <<~end
-      
-        Invalid selection
-        end
-      end
-    else
+    num = input.gsub("info", "")
+    if num.to_i > 0 && num.to_i <= Director.all.length + 1
+      dir_info(num.to_i - 1)
+    else 
       puts invalid = <<~end
-      
+    
       Invalid selection
       end
     end
@@ -221,42 +211,6 @@ class Cli
     director_info_other_roles(dir)
     puts ""
   end
-  
-  #   input = nil
-  #   while input != "menu"
-  #     puts dir_info = <<~end
-  
-  #       Director Info Menu
-  #       - To view more information on a director, enter the director number
-  #       - To view the profile of a movie listed in a director profile, enter 'view'
-  #       - To return to the previous menu, enter 'menu'
-  #     end
-  #     input = gets.strip.downcase
-  #     if input.to_i > 0 && input.to_i < Director.all.length
-  #       dir = Director.all[input.to_i - 1]
-  #       puts ""
-  #       puts "#{dir.name} Criterion Profile"
-  #       puts "- - - - - - - - - - - - - - - - - "
-  #       puts "#{dir.name} has directed a total of #{dir.movies.length} films"
-  #       puts "in the Criterion Collection:"
-  #       director_info_mov_list(dir)
-  #       puts ""
-  #       puts "Notable actors/actresses with whom #{dir.name}"
-  #       puts "has collaborated on these films include:"
-  #       director_info_cast_collab(dir)
-  #       puts ""
-  #       director_info_other_roles(dir)
-  #       puts ""
-  #     elsif input == "view"
-  #       view_profile
-  #     else
-  #       puts invalid = <<~end
-          
-  #         Invalid selection
-  #       end
-  #     end
-  #   end
-  # end
 
   def director_info_mov_list(dir)
    dir.movies.each do |moovv|
