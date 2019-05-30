@@ -56,10 +56,8 @@ class Cli
           
         end
       else
-        puts invalid = <<~end
-          
-          Invalid selection
-        end
+        puts ""
+        puts "Invalid selection"
       end
     end
   end
@@ -89,10 +87,8 @@ class Cli
       elsif /^view\s\d*$/.match(input)
         view_profile?(input)
       else
-        puts invalid = <<~end
-          
-          Invalid selection
-        end
+        puts ""
+        puts "Invalid selection"
       end
     end
   end
@@ -110,10 +106,8 @@ class Cli
     if num.to_i > 0 && num.to_i <= Movie.all.length
       movie_profile(num.to_i - 1)
     else 
-      puts invalid = <<~end
-    
-      Invalid selection
-      end
+      puts ""
+      puts "Invalid selection"
     end
   end
   
@@ -166,10 +160,8 @@ class Cli
       elsif /^info\s\d*$/.match(input)
         view_dir_info?(input)
       else
-        puts invalid = <<~end
-          
-          Invalid selection
-        end
+        puts ""
+        puts "Invalid selection"
       end
     end
   end
@@ -186,11 +178,22 @@ class Cli
     num = input.gsub("info", "")
     if num.to_i > 0 && num.to_i <= Director.all.length
       dir_info(num.to_i - 1)
-    else 
-      puts invalid = <<~end
-    
-      Invalid selection
+      while input != "back"
+        puts ""
+        puts "- Enter 'view #' to view the profile of a movie from this director"
+        puts "- Enter 'back' to search another director"
+        input = gets.strip.downcase
+        if input == "back"
+        elsif /^view\s\d*$/.match(input)
+          view_profile?(input)
+        else 
+          puts ""
+          puts "Invalid selection"
+        end
       end
+    else 
+      puts ""
+      puts "Invalid selection"
     end
   end
   
@@ -258,7 +261,7 @@ class Cli
     while input != "main"
       puts countries = <<~end
       
-        Country List Menu
+        COUNTRIES LIST
         - Enter 'list' to reprint the list of countries
         - Enter 'info #' for more information on a specific country
             (Ex. 'info 8' will display information for the eighth country listed)
@@ -272,10 +275,8 @@ class Cli
         puts ""
         view_cty_info?(input)
       else
-        puts invalid = <<~end
-          
-          Invalid selection
-        end
+        puts ""
+        puts "Invalid selection"
       end
     end
   end
@@ -290,10 +291,18 @@ class Cli
     num = input.gsub("info", "")
     if num.to_i > 0 && num.to_i <= Country.all.length
       cty_info(num.to_i - 1)
-    else 
-      puts invalid = <<~end
-    
-      Invalid selection
+      while input != "back"
+        puts ""
+        puts "- Enter 'view #' to view the profile of a movie from this country"
+        puts "- Enter 'back' to search another country"
+        input = gets.strip.downcase
+        if input == "back"
+        elsif /^view\s\d*$/.match(input)
+          view_profile?(input)
+        else 
+          puts ""
+          puts "Invalid selection"
+        end
       end
     end
   end
@@ -321,36 +330,42 @@ class Cli
       
 ### Lists Decade Path
   def list_years
-    input = nil
-    while input != "menu"
+    input = 1920
+    print_decade(input)
+    while input != "main"
       puts decade = <<~end
       
-        Decade List Menu
-        - To browse titles by decade, enter a decade between '1920' and '#{Date.today.year}'
-        - For more information on a title, enter 'view'
-        - To return to the previous menu, enter 'menu'
+        DECADES LIST
+        - Enter a year between '1920' and '#{Date.today.year}' to view all films from that decade 
+            (Ex. '1957' will display all films made during the 1950s)
+        - Enter 'view #' to view the profile of a specific movie 
+            (Ex. 'view 5' will display the profile for the fifth movie listed)
+        - Enter 'main' to return to the main menu
       end
       input = gets.strip.downcase
-      if input.to_i >= 1900 && input.to_i <= Date.today.year
-        decade = input.to_i / 10 * 10
-        counter = 0
-        Movie.all.each_with_index do |mov, index|
-          if mov.year.to_i >= decade && mov.year.to_i < (decade + 10)
-            puts "#{index + 1}) #{mov.title} (#{mov.year})"
-            counter += 1
-          end
-        end
-        puts ""
-        puts "A total of #{counter} Criterion films were made during the #{decade}s"
-        puts ""
-      elsif input == "view"
-        view_profile
+      if input == "main"
+      elsif input.to_i >= 1900 && input.to_i <= Date.today.year
+        print_decade(input)
+      elsif /^view\s\d*$/.match(input)
+        view_profile?(input)
       else
-        puts invalid = <<~end
-          
-          Invalid selection
-        end
+        puts ""
+        puts "Invalid selection"
       end
     end
   end
+  
+  def print_decade(input)
+    decade = input.to_i / 10 * 10
+    counter = 0
+    Movie.all.each_with_index do |mov, index|
+      if mov.year.to_i >= decade && mov.year.to_i < (decade + 10)
+        puts "#{index + 1}) #{mov.title} (#{mov.year})"
+        counter += 1
+      end
+    end
+    puts ""
+    puts "A total of #{counter} Criterion films were made during the #{decade}s"
+  end
+  
 end

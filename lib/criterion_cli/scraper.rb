@@ -68,6 +68,10 @@ class Scraper
       end
       mov.crew = crew_hsh
     else
+      cast_hsh = {}
+      cast_hsh["No cast"] = "no characters"
+      mov.cast = cast_hsh
+      
       crew_hsh = {}
       crew_k = []
       crew_v = []
