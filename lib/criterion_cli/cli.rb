@@ -252,21 +252,21 @@ class Cli
 
 ### Lists Country Path
   def list_countries
-    input = nil
-    while input != "menu"
+    input = 1
+    puts ""
+    print_countries
+    while input != "main"
       puts countries = <<~end
       
         Country List Menu
-        - To browse the country list, enter 'list'
-        - For more information on a country, enter 'info'
-        - To return to the previous menu, enter 'menu'
+        - Enter 'list' to reprint the list of countries
+        - Enter 'info #' for more information on a specific country
+        - Enter 'main' to return to the main menu
       end
       input = gets.strip.downcase
-      if input == "menu"
+      if input == "main"
       elsif input == "list"
-        Country.all.each_with_index do |cty, index|
-          puts "#{index + 1}) #{cty.name}"
-        end
+        print_countries
       elsif input == "info"
         puts ""
         country_info
@@ -279,6 +279,11 @@ class Cli
     end
   end
         
+  def print countries
+    Country.all.each_with_index do |cty, index|
+      puts "#{index + 1}) #{cty.name}"
+    end
+  end
         
   def country_info
     input = nil
