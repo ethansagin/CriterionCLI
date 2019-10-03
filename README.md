@@ -1,22 +1,17 @@
 # CriterionCli
 
-Welcome to the Criterion Collection Catalog gem! This CLI program serves as search engine for essential information on films within the Criterion Collection and includes search functionality for films by title, director, #{year,}, and country.
+Welcome to the Criterion Collection Catalog gem! This CLI program serves as search engine for essential information on films within the Criterion Collection and includes search functionality for films by title, director, year, and country.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+1) Clone the github repository by entering the following command in your terminal:
+"git clone git@github.com:jpier2012/beautiful_billboard.git"
 
-```ruby
-gem 'criterion_cli'
-```
+2) Change directories to the cloned directory: "cd CriterionCLI"
 
-And then execute:
+3) Install all required gems: "bundle install"
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install criterion_cli
+4) Run the CLI: "./bin/run"
 
 ## Usage
 
